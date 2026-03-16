@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Kỉ niệm</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+text-align:center;
+background:#e79c98;
+color:white;
+padding:40px;
+}
+
+h1{
+margin-bottom:20px;
+}
+
+img{
+width:350px;
+border-radius:25px;
+box-shadow:0 0 20px rgba(0,0,0,0.3);
+}
+
+.love-time{
+font-size:24px;
+margin:20px;
+font-weight:bold;
+}
+
+button{
+padding:10px 20px;
+border:none;
+border-radius:10px;
+background:#ff4d6d;
+color:white;
+cursor:pointer;
+margin-top:20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>📸 Những kỉ niệm của chúng ta</h1>
+
+<div id="loveTime" class="love-time"></div>
+
+<img id="slide" src="z7594643272504_e8638a730c88edeed0ec642259fd49ca.jpg">
+
+<br>
+
+<button onclick="goBack()">⬅ Quay lại</button>
+
+<script>
+
+/* slideshow ảnh */
+
+const images=[
+"z7594643272504_e8638a730c88edeed0ec642259fd49ca.jpg",
+"z7594643275525_c4d7294e063dcd7fffd3370769eef651.jpg",
+"z7594643279338_25faef51e1c4d23fa63f269e0f9db3a7.jpg",
+"z7594648864973_e775d503da0c0257f2f19ed34d00bcbe.jpg"
+]
+
+let index=0
+
+setInterval(()=>{
+
+index++
+
+if(index>=images.length){
+index=0
+}
+
+document.getElementById("slide").src=images[index]
+
+},3000)
+
+/* đếm thời gian yêu */
+
+const startDate = new Date("2025-12-17 00:00:00")
+
+function updateLoveTime(){
+
+const now=new Date()
+
+const diff=now-startDate
+
+const days=Math.floor(diff/(1000*60*60*24))
+const hours=Math.floor((diff/(1000*60*60))%24)
+const minutes=Math.floor((diff/(1000*60))%60)
+const seconds=Math.floor((diff/1000)%60)
+
+document.getElementById("loveTime").innerHTML=
+`💞 Chúng ta đã bên nhau <br>
+${days} ngày ${hours} giờ ${minutes} phút ${seconds} giây ❤️`
+
+}
+
+setInterval(updateLoveTime,1000)
+
+/* quay lại */
+
+function goBack(){
+window.location.href="love.html"
+}
+
+</script>
+
+</body>
+</html>
