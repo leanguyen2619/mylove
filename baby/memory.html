@@ -2,6 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kỉ niệm</title>
 
 <style>
@@ -10,35 +11,107 @@ body{
 margin:0;
 font-family:Arial;
 text-align:center;
-background:#e79c98;
+background:linear-gradient(135deg,#ff9a9e,#fad0c4);
 color:white;
-padding:40px;
+padding:30px;
+overflow:hidden;
 }
+
+/* tiêu đề */
 
 h1{
 margin-bottom:20px;
 }
 
-img{
-width:350px;
+/* khung ảnh */
+
+.photo-frame{
+display:inline-block;
+padding:12px;
+background:white;
 border-radius:25px;
-box-shadow:0 0 20px rgba(0,0,0,0.3);
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
+max-width:90vw;
 }
+
+/* ảnh */
+
+
+img{
+width:100%;
+max-width:380px;
+max-height:65vh;
+height:auto;
+border-radius:20px;
+transition:opacity 1s;
+object-fit:cover;
+}
+
+
+/* khung thời gian */
 
 .love-time{
-font-size:24px;
-margin:20px;
+font-size:22px;
+margin:25px auto;
 font-weight:bold;
+background:rgba(255,255,255,0.2);
+padding:15px;
+border-radius:15px;
+width:90%;
+max-width:350px;
+backdrop-filter:blur(10px);
 }
 
+/* nút */
+
 button{
-padding:10px 20px;
+padding:12px 25px;
 border:none;
 border-radius:10px;
 background:#ff4d6d;
 color:white;
 cursor:pointer;
-margin-top:20px;
+margin-top:30px;
+font-size:16px;
+}
+
+/* sao */
+
+.star{
+position:absolute;
+width:2px;
+height:2px;
+background:white;
+animation:twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle{
+from{opacity:0.2}
+to{opacity:1}
+}
+
+/* trái tim */
+
+.heart{
+position:absolute;
+bottom:-10px;
+color:#ff4d6d;
+font-size:18px;
+animation:float 6s linear infinite;
+}
+
+@keyframes float{
+
+0%{
+transform:translateY(0);
+opacity:1;
+}
+
+100%{
+transform:translateY(-100vh);
+opacity:0;
+}
+
 }
 
 </style>
@@ -50,7 +123,9 @@ margin-top:20px;
 
 <div id="loveTime" class="love-time"></div>
 
+<div class="photo-frame">
 <img id="slide" src="z7594643272504_e8638a730c88edeed0ec642259fd49ca.jpg">
+</div>
 
 <br>
 
@@ -58,18 +133,40 @@ margin-top:20px;
 
 <script>
 
+/* tạo sao */
+
+for(let i=0;i<120;i++){
+
+let star=document.createElement("div")
+star.className="star"
+
+star.style.left=Math.random()*100+"vw"
+star.style.top=Math.random()*100+"vh"
+
+document.body.appendChild(star)
+
+}
+
 /* slideshow ảnh */
 
 const images=[
+
 "z7594643272504_e8638a730c88edeed0ec642259fd49ca.jpg",
 "z7594643275525_c4d7294e063dcd7fffd3370769eef651.jpg",
 "z7594643279338_25faef51e1c4d23fa63f269e0f9db3a7.jpg",
 "z7594648864973_e775d503da0c0257f2f19ed34d00bcbe.jpg"
+
 ]
 
 let index=0
 
 setInterval(()=>{
+
+const img=document.getElementById("slide")
+
+img.style.opacity=0
+
+setTimeout(()=>{
 
 index++
 
@@ -77,7 +174,10 @@ if(index>=images.length){
 index=0
 }
 
-document.getElementById("slide").src=images[index]
+img.src=images[index]
+img.style.opacity=1
+
+},500)
 
 },3000)
 
@@ -103,6 +203,28 @@ ${days} ngày ${hours} giờ ${minutes} phút ${seconds} giây ❤️`
 }
 
 setInterval(updateLoveTime,1000)
+
+/* trái tim bay */
+
+function createHeart(){
+
+let heart=document.createElement("div")
+
+heart.className="heart"
+heart.innerHTML="❤"
+
+heart.style.left=Math.random()*100+"vw"
+heart.style.fontSize=(Math.random()*20+10)+"px"
+
+document.body.appendChild(heart)
+
+setTimeout(()=>{
+heart.remove()
+},6000)
+
+}
+
+setInterval(createHeart,400)
 
 /* quay lại */
 
